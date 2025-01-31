@@ -1,87 +1,57 @@
-<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagantes do Futebol - Mensalistas</title>
+    <title>Gestão de Membros - Futebol</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Pagantes do Futebol</h1>
-            <div class="header-controls">
-                <button id="addMensalistaBtn">Adicionar Mensalista</button>
-                <div class="status-section">
-                    <label for="footballStatus">Futebol desta semana:</label>
-                    <select id="footballStatus">
-                        <option value="sim">Sim</option>
-                        <option value="nao">Não</option>
-                    </select>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h1>Futebol Mensalistas POPERO PREMIUM</h1>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="game-status text-center">
+                                    <h3>Status do Jogo</h3>
+                                    <p id="gameStatus" class="status game-on">Haverá Jogo esta Semana</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="total-amount text-center">
+                                    <h3>Total Arrecadado</h3>
+                                    <p id="totalAmount" class="amount">R$ 01,00</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                            <table id="membersTable" class="table table-striped members-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Status de Pagamento</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Members will be dynamically populated by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </header>
-
-        <main>
-            <section class="month-selector">
-                <select id="mesReferencia">
-                    <option value="">Selecione o Mês</option>
-                    <option value="janeiro">Janeiro</option>
-                    <option value="fevereiro">Fevereiro</option>
-                    <option value="marco">Março</option>
-                    <option value="abril">Abril</option>
-                    <option value="maio">Maio</option>
-                    <option value="junho">Junho</option>
-                    <option value="julho">Julho</option>
-                    <option value="agosto">Agosto</option>
-                    <option value="setembro">Setembro</option>
-                    <option value="outubro">Outubro</option>
-                    <option value="novembro">Novembro</option>
-                    <option value="dezembro">Dezembro</option>
-                </select>
-            </section>
-
-            <section id="mensalistasLista">
-                <!-- Lista de mensalistas será inserida dinamicamente -->
-            </section>
-        </main>
-
-        <div id="modalCadastro" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Cadastrar Novo Mensalista</h2>
-                <form id="formMensalista">
-                    <input type="text" id="nome" placeholder="Nome Completo" required>
-                    <input type="text" id="telefone" placeholder="Telefone" required>
-                    <input type="date" id="dataNascimento" placeholder="Data de Nascimento" required>
-                    <select id="plano" required>
-                        <option value="">Selecione o Plano</option>
-                        <option value="basico">Plano Básico</option>
-                        <option value="premium">Plano Premium</option>
-                        <option value="vip">Plano VIP</option>
-                    </select>
-                    <input type="number" id="valorMensalidade" placeholder="Valor Mensalidade" required>
-                    <select id="mesPagamento" required>
-                        <option value="">Selecione o Mês de Pagamento</option>
-                        <option value="janeiro">Janeiro</option>
-                        <option value="fevereiro">Fevereiro</option>
-                        <option value="marco">Março</option>
-                        <option value="abril">Abril</option>
-                        <option value="maio">Maio</option>
-                        <option value="junho">Junho</option>
-                        <option value="julho">Julho</option>
-                        <option value="agosto">Agosto</option>
-                        <option value="setembro">Setembro</option>
-                        <option value="outubro">Outubro</option>
-                        <option value="novembro">Novembro</option>
-                        <option value="dezembro">Dezembro</option>
-                    </select>
-                    <button type="submit">Cadastrar</button>
-                </form>
             </div>
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
