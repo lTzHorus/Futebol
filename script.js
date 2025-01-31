@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const membersData = [
         { name: 'Leonardo', status: 'paid', amount: 54 },
-        { name: 'Luiz', status: 'pending-today', amount: 0 },
+        { name: 'Luiz', status: 'paid', amount: 43 },
         { name: 'Jhoww', status: 'paid', amount: 43 },
         { name: 'Lucas', status: 'paid', amount: 43 },
         { name: 'Hiago', status: 'pending', amount: 0 },
@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Yago', status: 'pending-today', amount: 0 },
         { name: 'Eduardo', status: 'paid', amount: 43 },
         { name: 'Gui', status: 'paid', amount: 43 },
+        { name: 'Renan', status: 'paid', amount: 43 },
+        { name: 'Daniel', status: 'pending-today', amount: 43 },
         { name: 'Axel', status: 'paid', amount: 43 }
     ];
 
