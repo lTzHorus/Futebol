@@ -11,7 +11,7 @@ class GerenciadorMensalistas {
 
     async carregarMensalistas() {
         try {
-            const response = await fetch('http://localhost:5000/mensalistas');
+            const response = await fetch('/api/mensalistas');
             this.mensalistas = await response.json();
             this.renderizarMensalistas();
         } catch (error) {
@@ -37,7 +37,7 @@ class GerenciadorMensalistas {
         };
 
         try {
-            const response = await fetch('http://localhost:5000/mensalistas', {
+            const response = await fetch('/api/mensalistas', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ class GerenciadorMensalistas {
 
     async excluirMensalista(id) {
         try {
-            const response = await fetch(`http://localhost:5000/mensalistas/${id}`, {
+            const response = await fetch(`/api/mensalistas/${id}`, {
                 method: 'DELETE',
             });
 
