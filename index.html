@@ -1,0 +1,87 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagantes do Futebol - Mensalistas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pagantes do Futebol</h1>
+            <div class="header-controls">
+                <button id="addMensalistaBtn">Adicionar Mensalista</button>
+                <div class="status-section">
+                    <label for="footballStatus">Futebol desta semana:</label>
+                    <select id="footballStatus">
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <section class="month-selector">
+                <select id="mesReferencia">
+                    <option value="">Selecione o Mês</option>
+                    <option value="janeiro">Janeiro</option>
+                    <option value="fevereiro">Fevereiro</option>
+                    <option value="marco">Março</option>
+                    <option value="abril">Abril</option>
+                    <option value="maio">Maio</option>
+                    <option value="junho">Junho</option>
+                    <option value="julho">Julho</option>
+                    <option value="agosto">Agosto</option>
+                    <option value="setembro">Setembro</option>
+                    <option value="outubro">Outubro</option>
+                    <option value="novembro">Novembro</option>
+                    <option value="dezembro">Dezembro</option>
+                </select>
+            </section>
+
+            <section id="mensalistasLista">
+                <!-- Lista de mensalistas será inserida dinamicamente -->
+            </section>
+        </main>
+
+        <div id="modalCadastro" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Cadastrar Novo Mensalista</h2>
+                <form id="formMensalista">
+                    <input type="text" id="nome" placeholder="Nome Completo" required>
+                    
+                    <input type="text" id="telefone" placeholder="Telefone" required>
+                    <input type="date" id="dataNascimento" placeholder="Data de Nascimento" required>
+                    <select id="plano" required>
+                        <option value="">Selecione o Plano</option>
+                        <option value="basico">Plano Básico</option>
+                        <option value="premium">Plano Premium</option>
+                        <option value="vip">Plano VIP</option>
+                    </select>
+                    <input type="number" id="valorMensalidade" placeholder="Valor Mensalidade" required>
+                    <select id="mesPagamento" required>
+                        <option value="">Selecione o Mês de Pagamento</option>
+                        <option value="janeiro">Janeiro</option>
+                        <option value="fevereiro">Fevereiro</option>
+                        <option value="marco">Março</option>
+                        <option value="abril">Abril</option>
+                        <option value="maio">Maio</option>
+                        <option value="junho">Junho</option>
+                        <option value="julho">Julho</option>
+                        <option value="agosto">Agosto</option>
+                        <option value="setembro">Setembro</option>
+                        <option value="outubro">Outubro</option>
+                        <option value="novembro">Novembro</option>
+                        <option value="dezembro">Dezembro</option>
+                    </select>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
