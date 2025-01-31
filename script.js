@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Gustavo', status: 'paid', amount: 43 },
         { name: 'Mike', status: 'paid', amount: 43 },
         { name: 'Will', status: 'pending-today', amount: 0 },
-        { name: 'Yago', status: 'pending-today', amount: 0 },
+        { name: 'Yago', status: 'paid', amount: 43 },
         { name: 'Eduardo', status: 'paid', amount: 43 },
         { name: 'Gui', status: 'paid', amount: 43 },
         { name: 'Renan', status: 'paid', amount: 43 },
