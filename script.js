@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: 'Luiz', status: 'paid', amount: 43 },
         { name: 'Jhoww', status: 'paid', amount: 43 },
         { name: 'Lucas', status: 'paid', amount: 43 },
-        { name: 'Hiago', status: 'pending', amount: 0 },
+        { name: 'Hiago', status: 'paid', amount: 43 },
         { name: 'Caio', status: 'paid', amount: 43 },
         { name: 'Lopes', status: 'pending-next', amount: 0 },
         { name: 'Danilo', status: 'paid', amount: 43 },
