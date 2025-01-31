@@ -1,12 +1,118 @@
 class GerenciadorMensalistas {
     constructor() {
-        this.mensalistas = JSON.parse(localStorage.getItem('mensalistas')) || [];
+        this.mensalistas = [];
         this.statusFutebol = localStorage.getItem('statusFutebol') || 'nao';
         this.mesReferencia = localStorage.getItem('mesReferencia') || '';
         this.inicializarEventListeners();
-        this.renderizarMensalistas();
+        this.carregarMensalistas();
         this.configurarStatusFutebol();
         this.configurarMesReferencia();
+    }
+
+    async carregarMensalistas() {
+        try {
+            const response = await fetch('http://localhost:5000/mensalistas');
+            this.mensalistas = await response.json();
+            this.renderizarMensalistas();
+        } catch (error) {
+            console.error("Erro ao carregar mensalistas:", error);
+        }
+    }
+
+    async adicionarMensalista() {
+        const nome = document.getElementById('nome').value;
+        const telefone = document.getElementById('telefone').value;
+        const dataNascimento = document.getElementById('dataNascimento').value;
+        const plano = document.getElementById('plano').value;
+        const valorMensalidade = document.getElementById('valorMensalidade').value;
+        const mesPagamento = document.getElementById('mesPagamento').value;
+
+        const novoMensalista = {
+            nome,
+            telefone,
+            dataNascimento,
+            plano,
+            valorMensalidade,
+            mesPagamento
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/mensalistas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(novoMensalista),
+            });
+
+            if (response.ok) {
+                this.carregarMensalistas();
+                this.limparFormulario();
+            } else {
+                console.error("Erro ao adicionar mensalista:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Erro ao adicionar mensalista:", error);
+        }
+    }
+
+    async excluirMensalista(id) {
+        try {
+            const response = await fetch(`http://localhost:5000/mensalistas/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                this.carregarMensalistas();
+            } else {
+                console.error("Erro ao excluir mensalista:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Erro ao excluir mensalista:", error);
+        }
+    }
+
+    renderizarMensalistas() {
+        const listaMensalistas = document.getElementById('mensalistasLista');
+        listaMensalistas.innerHTML = '';
+
+        const mensalistasFiltered = this.mesReferencia 
+            ? this.mensalistas.filter(m => m.mesPagamento === this.mesReferencia)
+            : this.mensalistas;
+
+        mensalistasFiltered.forEach(mensalista => {
+            const cardMensalista = document.createElement('div');
+            cardMensalista.classList.add('mensalista-card');
+            cardMensalista.innerHTML = `
+                <div class="card-header">
+                    <h3>${mensalista.nome}</h3>
+                    <button class="delete-btn" data-id="${mensalista._id}">🗑️</button>
+                </div>
+                
+                <p><strong>Telefone:</strong> ${mensalista.telefone}</p>
+                <p><strong>Plano:</strong> ${mensalista.plano}</p>
+                <p><strong>Valor Mensalidade:</strong> R$ ${mensalista.valorMensalidade}</p>
+                <p><strong>Mês de Pagamento:</strong> ${mensalista.mesPagamento}</p>
+            `;
+            listaMensalistas.appendChild(cardMensalista);
+
+            // Adicionar evento de exclusão
+            const deleteBtn = cardMensalista.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', () => this.excluirMensalista(mensalista._id));
+        });
+
+        // Mostrar status do futebol
+        const statusElement = document.createElement('div');
+        statusElement.classList.add('football-status');
+        statusElement.innerHTML = `
+            <strong>Status do Futebol:</strong> 
+            ${this.statusFutebol === 'sim' ? '⚽ Teremos Futebol!' : '❌ Não teremos Futebol'}
+        `;
+        listaMensalistas.prepend(statusElement);
+    }
+
+    limparFormulario() {
+        document.getElementById('formMensalista').reset();
     }
 
     inicializarEventListeners() {
@@ -52,84 +158,6 @@ class GerenciadorMensalistas {
     configurarMesReferencia() {
         const mesReferencia = document.getElementById('mesReferencia');
         mesReferencia.value = this.mesReferencia;
-    }
-
-    adicionarMensalista() {
-        const nome = document.getElementById('nome').value;
-        
-        const telefone = document.getElementById('telefone').value;
-        const dataNascimento = document.getElementById('dataNascimento').value;
-        const plano = document.getElementById('plano').value;
-        const valorMensalidade = document.getElementById('valorMensalidade').value;
-        const mesPagamento = document.getElementById('mesPagamento').value;
-
-        const novoMensalista = {
-            id: Date.now(),
-            nome,
-            telefone,
-            dataNascimento,
-            plano,
-            valorMensalidade,
-            mesPagamento
-        };
-
-        this.mensalistas.push(novoMensalista);
-        this.salvarMensalistas();
-        this.renderizarMensalistas();
-        this.limparFormulario();
-    }
-
-    salvarMensalistas() {
-        localStorage.setItem('mensalistas', JSON.stringify(this.mensalistas));
-    }
-
-    renderizarMensalistas() {
-        const listaMensalistas = document.getElementById('mensalistasLista');
-        listaMensalistas.innerHTML = '';
-
-        const mensalistasFiltered = this.mesReferencia 
-            ? this.mensalistas.filter(m => m.mesPagamento === this.mesReferencia)
-            : this.mensalistas;
-
-        mensalistasFiltered.forEach(mensalista => {
-            const cardMensalista = document.createElement('div');
-            cardMensalista.classList.add('mensalista-card');
-            cardMensalista.innerHTML = `
-                <div class="card-header">
-                    <h3>${mensalista.nome}</h3>
-                    <button class="delete-btn" data-id="${mensalista.id}">🗑️</button>
-                </div>
-                
-                <p><strong>Telefone:</strong> ${mensalista.telefone}</p>
-                <p><strong>Plano:</strong> ${mensalista.plano}</p>
-                <p><strong>Valor Mensalidade:</strong> R$ ${mensalista.valorMensalidade}</p>
-                <p><strong>Mês de Pagamento:</strong> ${mensalista.mesPagamento}</p>
-            `;
-            listaMensalistas.appendChild(cardMensalista);
-
-            // Adicionar evento de exclusão
-            const deleteBtn = cardMensalista.querySelector('.delete-btn');
-            deleteBtn.addEventListener('click', () => this.excluirMensalista(mensalista.id));
-        });
-
-        // Mostrar status do futebol
-        const statusElement = document.createElement('div');
-        statusElement.classList.add('football-status');
-        statusElement.innerHTML = `
-            <strong>Status do Futebol:</strong> 
-            ${this.statusFutebol === 'sim' ? '⚽ Teremos Futebol!' : '❌ Não teremos Futebol'}
-        `;
-        listaMensalistas.prepend(statusElement);
-    }
-
-    excluirMensalista(id) {
-        this.mensalistas = this.mensalistas.filter(m => m.id !== id);
-        this.salvarMensalistas();
-        this.renderizarMensalistas();
-    }
-
-    limparFormulario() {
-        document.getElementById('formMensalista').reset();
     }
 }
 
